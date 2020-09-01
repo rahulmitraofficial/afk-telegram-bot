@@ -13,7 +13,7 @@ class AFK(Base):
 	user_id = Column(String(30), primary_key=True)
 	reason = Column(String(3000), nullable = False)
 
-engine = create_engine("postgres://stseevpchenioh:e6ca7007aa6177b1a8fd10f86773d4448935dc1df166c4eca587386f620e5f95@ec2-34-251-118-151.eu-west-1.compute.amazonaws.com:5432/d775prj7c951jk")
+engine = create_engine(os.environ.get("DATABASE_URL"))
 
 Session = sessionmaker(bind = engine)
 session = Session()
