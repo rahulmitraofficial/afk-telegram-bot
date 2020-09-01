@@ -1,2 +1,3 @@
 # caps-tv-afk-telegram-bot
-### Simple AFK Telegram bot for one chat
+A simple AFK Python Telegram bot running
+ on python3 with an sqlalchemy database
