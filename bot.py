@@ -53,6 +53,7 @@ Reason:\n<b>{}</b>
 			update.message.reply_text("""
 {} is <b>AFK</b>!
 		""".format(mention), parse_mode = "HTML")
+		return
 	except:
 		print()
 	reason = afk.get(get_mentioned_id(update))
