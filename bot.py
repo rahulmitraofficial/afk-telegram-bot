@@ -33,7 +33,7 @@ def get_mentioned_mention(update):
 def group(update, context):
 	text = update.message.text
 	user_id = update.message.from_user.id
-	user_name = update.message.from_user.full_name
+	user_name = update.message.from_user.first_name
 	
 	if afk.get(user_id):
 		afk.rm(user_id)
@@ -78,9 +78,9 @@ Reason:\n<b>{}</b>
 		mention = f'<a href="tg://user?id={user_id}">{user_name}</a>'
 		
 		if reason == "None":
-			context.bot.send_message(update.message.chat.id, f"{mention} is <b>AFK</b>!", parse_mode = "HTML")
+			update.message.reply_text(f"{mention} is <b>AFK</b>!", parse_mode = "HTML")
 		else:
-			context.bot.send_message(update.message.chat.id, """
+			update.message.reply_text("""
 {} is <b>AFK</b>!
 
 Reason:\n<b>{}</b>
