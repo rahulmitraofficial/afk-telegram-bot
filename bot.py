@@ -21,7 +21,7 @@ Reason:\n<b>{}</b>
 	if text.startswith("/afk"):
 		text = text.replace("/afk", "")
 		text = text.strip()
-		reason = "no reason specified"
+		reason = "None"
 		if text != "":
 			reason = text
 		afk.add(afk.AFK(user_id = user_id, reason = reason))
