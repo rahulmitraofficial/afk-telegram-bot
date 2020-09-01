@@ -73,15 +73,16 @@ Reason:\n<b>{}</b>
 		if text != "":
 			reason = text
 		afk.add(afk.AFK(user_id = user_id, reason = reason))
+		mention = '<a href="tg://user?id={update.message.from_user.id}">{update.message.from_user.first_name}</a>'
 		
 		if reason == "None":
-			context.bot.send_message(update.message.chat.id, f"{user_name} is <b>AFK</b>!", parse_mode = "HTML")
+			context.bot.send_message(update.message.chat.id, f"{mention} is <b>AFK</b>!", parse_mode = "HTML")
 		else:
 			context.bot.send_message(update.message.chat.id, """
 {} is <b>AFK</b>!
 
 Reason:\n<b>{}</b>
-		""".format(user_name, reason), parse_mode = "HTML")
+		""".format(mention, reason), parse_mode = "HTML")
 
 def private(update, context):
 	update.message.reply_text("Hello you!")
