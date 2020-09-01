@@ -1,5 +1,6 @@
 from telegram import *
 from telegram.ext import *
+import users
 import afk
 
 def get_mentioned_id(update):
@@ -71,6 +72,8 @@ def private(update, context):
 	update.message.reply_text("Hello you!")
 
 def main(update, context):
+	if update.message.from_user.username:
+		users.add(users.User(user_id = update.message.from_user.id, username = update.message.from_user.username))
 	if update.message.chat.type == "supergroup" or update.message.chat.type == "group":
 		return group(update, context)
 	elif update.message.chat.type == "private":
