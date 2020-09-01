@@ -33,7 +33,6 @@ def private(update, context):
 	update.message.reply_text("Hello you!")
 
 def main(update, context):
-	users.main(update.message.from_user.id, update.message.from_user.username)
 	if update.message.chat.type == "supergroup" or update.message.chat.type == "group":
 		return group(update, context)
 	elif update.message.chat.type == "private":
@@ -42,8 +41,7 @@ def main(update, context):
 def new_member(update, context):
 	for member in update.message.new_chat_members:
 		if member.username == "CAPS_TV_AFKBot":
-			if update.message.chat.id != -1001254404350:
-				context.bot.leave_chat(update.message.chat.id)
+			update.message.reply_text("Hola")
 
 updater = Updater("1303580604:AAFVbxR7kKQpA06mf31IQpZaHu1HF477x5Y", use_context = True)
 
