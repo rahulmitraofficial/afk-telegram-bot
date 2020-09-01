@@ -99,7 +99,8 @@ def main(update, context):
 def new_member(update, context):
 	for member in update.message.new_chat_members:
 		if member.username == "CAPS_TV_AFKBot":
-			update.message.reply_text("Hola")
+			if update.message.chat.id != int(os.environ.get("CHAT_ID")):
+				context.bot.leave_chat(update.message.chat.id)
 
 updater = Updater(os.environ.get("TOKEN"), use_context = True)
 
