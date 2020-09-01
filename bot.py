@@ -47,7 +47,7 @@ def group(update, context):
 			update.message.reply_text("""
 {} is <b>AFK</b>!
 
-Reason:\n<b>{}</b>
+Reason: <b>{}</b>
 		""".format(mention, reason), parse_mode = "HTML")
 		elif reason:
 			update.message.reply_text("""
@@ -61,7 +61,7 @@ Reason:\n<b>{}</b>
 		update.message.reply_text("""
 {} is <b>AFK</b>!
 
-Reason:\n<b>{}</b>
+Reason: <b>{}</b>
 		""".format(get_mentioned_mention(update), reason), parse_mode = "HTML")
 	elif reason:
 			update.message.reply_text("""
@@ -83,7 +83,7 @@ Reason:\n<b>{}</b>
 			update.message.reply_text("""
 {} is <b>AFK</b>!
 
-Reason:\n<b>{}</b>
+Reason: <b>{}</b>
 		""".format(mention, reason), parse_mode = "HTML")
 
 def private(update, context):
