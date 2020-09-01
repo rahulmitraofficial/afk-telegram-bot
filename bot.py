@@ -2,6 +2,19 @@ from telegram import *
 from telegram.ext import *
 import afk
 
+def get_mentioned_id(update):
+	message = update.effective_message
+	userc = update.effective_user
+	userc_id = userc.id
+	
+	if message.entities and message.parse_entities([MessageEntity.TEXT_MENTION, MessageEntity.MENTION]):
+		entities = message.parse_entities([MessageEntity.TEXT_MENTION, MessageEntity.MENTION])
+		for ent in entities:
+			if ent.type == MessageEntity.TEXT_MENTION:
+				return ent.user.id
+			if ent.type == MessageEntity.MENTION:
+				return int(users.get(message.text[ent.offset:ent.offset + ent.length].replace("@", "")))
+
 def group(update, context):
 	text = update.message.text
 	user_id = update.message.from_user.id
@@ -23,6 +36,18 @@ Reason:\n<b>{}</b>
 		""".format(replied_user_name), parse_mode = "HTML")
 	except:
 		print()
+	reason = afk.get(get_mentioned_id(update))
+	if reason and reason != "None":
+		update.message.reply_text("""
+Someone who you mentioned is <b>AFK</b>!
+
+Reason:\n<b>{}</b>
+		""".format(replied_user_name, reason), parse_mode = "HTML")
+	elif reason:
+			update.message.reply_text("""
+Someone who you mentioned is <b>AFK</b>!
+		""".format(replied_user_name), parse_mode = "HTML")
+	
 	if text.startswith("/afk"):
 		text = text.replace("/afk", "")
 		text = text.strip()
