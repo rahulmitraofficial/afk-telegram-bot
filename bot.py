@@ -1,0 +1,55 @@
+from telegram import *
+from telegram.ext import *
+import afk
+
+def group(update, context):
+	text = update.message.text
+	user_id = update.message.from_user.id
+	user_name = update.message.from_user.full_name
+	
+	try:
+		replied_user_id = update.message.reply_to_message.from_user.id
+		replied_user_name = update.message.reply_to_message.from_user.full_name
+		if afk.get(replied_user_id):
+			update.message.reply_text("""
+{} is <b>AFK</b>!
+
+Reason:\n<b>{}</b>
+		""".format(replied_user_name, afk.get(replied_user_id)), parse_mode = "HTML")
+	except:
+		print()
+	if text.startswith("/afk"):
+		text = text.replace("/afk", "")
+		text = text.strip()
+		reason = "no reason specified"
+		if text != "":
+			reason = text
+		afk.add(afk.AFK(user_id = user_id, reason = reason))
+		update.message.delete()
+	elif afk.get(user_id):
+		afk.rm(user_id)
+
+def private(update, context):
+	update.message.reply_text("Hello you!")
+
+def main(update, context):
+	users.main(update.message.from_user.id, update.message.from_user.username)
+	if update.message.chat.type == "supergroup" or update.message.chat.type == "group":
+		return group(update, context)
+	elif update.message.chat.type == "private":
+		return private(update, context)
+
+def new_member(update, context):
+	for member in update.message.new_chat_members:
+		if member.username == "CAPS_TV_AFKBot":
+			if update.message.chat.id != -1001254404350:
+				context.bot.leave_chat(update.message.chat.id)
+
+updater = Updater("1303580604:AAFVbxR7kKQpA06mf31IQpZaHu1HF477x5Y", use_context = True)
+
+dp = updater.dispatcher
+dp.add_handler(MessageHandler(Filters.text, main))
+dp.add_handler(MessageHandler(Filters.status_update.new_chat_members, new_member))
+
+updater.start_polling()
+updater.idle()
