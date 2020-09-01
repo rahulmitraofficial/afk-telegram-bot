@@ -35,6 +35,9 @@ def group(update, context):
 	user_id = update.message.from_user.id
 	user_name = update.message.from_user.full_name
 	
+	if afk.get(user_id):
+		afk.rm(user_id)
+	
 	try:
 		replied_user_id = update.message.reply_to_message.from_user.id
 		replied_user_name = update.message.reply_to_message.from_user.full_name
@@ -79,8 +82,6 @@ Reason:\n<b>{}</b>
 
 Reason:\n<b>{}</b>
 		""".format(user_name, reason), parse_mode = "HTML")
-	elif afk.get(user_id):
-		afk.rm(user_id)
 
 def private(update, context):
 	update.message.reply_text("Hello you!")
