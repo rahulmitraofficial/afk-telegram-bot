@@ -48,11 +48,11 @@ def group(update, context):
 {} is <b>AFK</b>!
 
 Reason:\n<b>{}</b>
-		""".format(replied_user_name, reason), parse_mode = "HTML")
+		""".format(mention, reason), parse_mode = "HTML")
 		elif reason:
 			update.message.reply_text("""
 {} is <b>AFK</b>!
-		""".format(replied_user_name), parse_mode = "HTML")
+		""".format(mention), parse_mode = "HTML")
 	except:
 		print()
 	reason = afk.get(get_mentioned_id(update))
