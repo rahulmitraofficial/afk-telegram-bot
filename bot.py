@@ -17,6 +17,19 @@ def get_mentioned_id(update):
 			if ent.type == MessageEntity.MENTION:
 				return int(users.get(message.text[ent.offset:ent.offset + ent.length].replace("@", "")))
 
+def get_mentioned_mention(update):
+	message = update.effective_message
+	userc = update.effective_user
+	userc_id = userc.id
+	
+	if message.entities and message.parse_entities([MessageEntity.TEXT_MENTION, MessageEntity.MENTION]):
+		entities = message.parse_entities([MessageEntity.TEXT_MENTION, MessageEntity.MENTION])
+		for ent in entities:
+			if ent.type == MessageEntity.TEXT_MENTION:
+				return f'<a href="tg://user?id={ent.user.id}">{ent.user.first_name}</a>'
+			if ent.type == MessageEntity.MENTION:
+				return message.text[ent.offset:ent.offset + ent.length]
+
 def group(update, context):
 	text = update.message.text
 	user_id = update.message.from_user.id
@@ -41,14 +54,14 @@ Reason:\n<b>{}</b>
 	reason = afk.get(get_mentioned_id(update))
 	if reason and reason != "None":
 		update.message.reply_text("""
-Someone who you mentioned is <b>AFK</b>!
+{} is <b>AFK</b>!
 
 Reason:\n<b>{}</b>
-		""".format(reason), parse_mode = "HTML")
+		""".format(get_mentioned_mention(update), reason), parse_mode = "HTML")
 	elif reason:
 			update.message.reply_text("""
-Someone who you mentioned is <b>AFK</b>!
-		""", parse_mode = "HTML")
+{} is <b>AFK</b>!
+		""".format(get_mentioned_mention(update)), parse_mode = "HTML")
 	
 	if text.startswith("/afk"):
 		text = text.replace("/afk", "")
