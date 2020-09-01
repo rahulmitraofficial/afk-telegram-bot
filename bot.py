@@ -10,12 +10,17 @@ def group(update, context):
 	try:
 		replied_user_id = update.message.reply_to_message.from_user.id
 		replied_user_name = update.message.reply_to_message.from_user.full_name
-		if afk.get(replied_user_id):
+		reason = afk.get(replied_user_id)
+		if reason and reason != "None":
 			update.message.reply_text("""
 {} is <b>AFK</b>!
 
 Reason:\n<b>{}</b>
-		""".format(replied_user_name, afk.get(replied_user_id)), parse_mode = "HTML")
+		""".format(replied_user_name, reason), parse_mode = "HTML")
+		elif reason:
+			update.message.reply_text("""
+{} is <b>AFK</b>!
+		""".format(replied_user_name), parse_mode = "HTML")
 	except:
 		print()
 	if text.startswith("/afk"):
@@ -25,7 +30,15 @@ Reason:\n<b>{}</b>
 		if text != "":
 			reason = text
 		afk.add(afk.AFK(user_id = user_id, reason = reason))
-		context.bot.send_message(update.message.chat.id, f"{user_name} is AFK!")
+		
+		if reason == "None":
+			context.bot.send_message(update.message.chat.id, f"{user_name} is <b>AFK</b>!", parse_mode = "HTML")
+		else:
+			context.bot.send_message(update.message.chat.id, """
+{} is <b>AFK</b>!
+
+Reason:\n<b>{}</b>
+		""".format(user_name, reason), parse_mode = "HTML")
 	elif afk.get(user_id):
 		afk.rm(user_id)
 
