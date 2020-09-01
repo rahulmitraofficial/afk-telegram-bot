@@ -43,7 +43,7 @@ def new_member(update, context):
 		if member.username == "CAPS_TV_AFKBot":
 			update.message.reply_text("Hola")
 
-updater = Updater("1303580604:AAFVbxR7kKQpA06mf31IQpZaHu1HF477x5Y", use_context = True)
+updater = Updater("1142396420:AAERZKChnVfogO2c8FIt8WNB8v1YGZONbdQ", use_context = True)
 
 dp = updater.dispatcher
 dp.add_handler(MessageHandler(Filters.text, main))
