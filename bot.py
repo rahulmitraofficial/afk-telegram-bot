@@ -43,11 +43,11 @@ Reason:\n<b>{}</b>
 Someone who you mentioned is <b>AFK</b>!
 
 Reason:\n<b>{}</b>
-		""".format(replied_user_name, reason), parse_mode = "HTML")
+		""".format(reason), parse_mode = "HTML")
 	elif reason:
 			update.message.reply_text("""
 Someone who you mentioned is <b>AFK</b>!
-		""".format(replied_user_name), parse_mode = "HTML")
+		""", parse_mode = "HTML")
 	
 	if text.startswith("/afk"):
 		text = text.replace("/afk", "")
