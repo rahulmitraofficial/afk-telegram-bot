@@ -7,3 +7,7 @@ A simple AFK Python Telegram bot running
 `DATABASE_URL`, your database url.
 `CHAT_ID`, your Telegram group chat id.
 `TOKEN`, the bot API key that [Botfather](https://t.me/botfather) generated.
+
+
+## Deploying to Heroku
+
