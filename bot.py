@@ -40,7 +40,8 @@ def group(update, context):
 	
 	try:
 		replied_user_id = update.message.reply_to_message.from_user.id
-		replied_user_name = update.message.reply_to_message.from_user.full_name
+		replied_user_name = update.message.reply_to_message.from_user.first_name
+		mention = f'<a href="tg://user?id={replied_user_id}">{replied_user_name}</a>'
 		reason = afk.get(replied_user_id)
 		if reason and reason != "None":
 			update.message.reply_text("""
@@ -73,7 +74,7 @@ Reason:\n<b>{}</b>
 		if text != "":
 			reason = text
 		afk.add(afk.AFK(user_id = user_id, reason = reason))
-		mention = f'<a href="tg://user?id={update.message.from_user.id}">{update.message.from_user.first_name}</a>'
+		mention = f'<a href="tg://user?id={user_id}">{user_name}</a>'
 		
 		if reason == "None":
 			context.bot.send_message(update.message.chat.id, f"{mention} is <b>AFK</b>!", parse_mode = "HTML")
