@@ -25,7 +25,7 @@ Reason:\n<b>{}</b>
 		if text != "":
 			reason = text
 		afk.add(afk.AFK(user_id = user_id, reason = reason))
-		update.message.delete()
+		context.bot.send_message(update.message.chat.id, f"{user_name} is AFK!")
 	elif afk.get(user_id):
 		afk.rm(user_id)
 
