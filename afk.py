@@ -15,6 +15,8 @@ class AFK(Base):
 
 engine = create_engine(os.environ.get("DATABASE_URL"))
 
+Base.metadata.create_all(engine)
+
 Session = sessionmaker(bind = engine)
 session = Session()
 
