@@ -21,7 +21,7 @@ session = Session()
 def add(afk):
 	afk.user_id = str(afk.user_id)
 	try:
-		queryr = session.query(AFK).filter_by(user_id = afk.user_id).first()
+		queryr = session.query(AFK).filter_by(user_id = user_id).first()
 	
 		if not bool(queryr):
 			session.add(afk)
