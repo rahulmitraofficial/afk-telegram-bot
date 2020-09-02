@@ -54,7 +54,7 @@ def rm(user_id):
 	if not get(user_id):
 		return False
 	try:
-		queryr = session.query(AFK).filter_by(user_id = user_id).first()
+		queryr = session.query(AFK).filter_by(user_id = user_id)
 		queryr.delete()
 		session.commit()
 		return True
