@@ -88,7 +88,6 @@ Reason: <b>{}</b>
 
 def private(update, context):
 	update.message.reply_text("Hello. This AFK Bot has no functions in PM. To use this bot in your groups, you need to host your own bot")
-	classtelegram.InlineKeyboardButton(Hi, url=https://www.youtube.com/capstv, callback_data=None, switch_inline_query=None, switch_inline_query_current_chat=None, callback_game=None, pay=None, login_url=None, **kwargs)
 def main(update, context):
 	if update.message.from_user.username:
 		users.add(users.User(user_id = update.message.from_user.id, username = update.message.from_user.username))
