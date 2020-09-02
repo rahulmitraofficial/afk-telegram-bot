@@ -87,8 +87,12 @@ Reason: <b>{}</b>
 		""".format(mention, reason), parse_mode = "HTML")
 
 def private(update, context):
+<<<<<<< HEAD
 	update.message.reply_text("Hello. This AFK Bot has no functions in PM. To use this bot in your groups, you need to host your own bot")
 	class telegram.InlineKeyboardButton("hi", url="https://www.youtube.com/capstv", callback_data=None, switch_inline_query=None, switch_inline_query_current_chat=None, callback_game=None, pay=None, login_url=None, **kwargs)
+=======
+	update.message.reply_text("Hello you!")
+>>>>>>> parent of 5b43877... Update private message reply
 
 def main(update, context):
 	if update.message.from_user.username:
