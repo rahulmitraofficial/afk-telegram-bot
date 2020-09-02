@@ -87,10 +87,7 @@ Reason: <b>{}</b>
 		""".format(mention, reason), parse_mode = "HTML")
 
 def private(update, context):
-	update.message.reply_text("Hello. This AFK Bot has no functions in PM. To use this bot in your groups, you need to host your own bot",
-		reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton(text="Help",url="https://www.youtube.com/capstv")]]))
-	)
-
+	update.message.reply_text("Hello. This AFK Bot has no functions in PM. To use this bot in your groups, you need to host your own bot")
 
 def main(update, context):
 	if update.message.from_user.username:
