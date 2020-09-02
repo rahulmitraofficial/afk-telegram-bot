@@ -88,7 +88,7 @@ Reason: <b>{}</b>
 
 def private(update, context):
 	reply_markup = InlineKeyboardMarkup([[InlineKeyboardButton(text = "Bot Repository", url = "https://github.com/rojserbest/caps-tv-afk-telegram-bot")]])
-	update.message.reply_text("Hello. This AFK Bot has no functions in PM. To use this bot in your groups, you need to host your own bot", reply_markup = reply_markup)
+	update.message.reply_text("Hello. This AFK Bot has no functions in PM. To use this bot in your groups, you need to host your own bot.", reply_markup = reply_markup)
 
 def main(update, context):
 	if update.message.from_user.username:
