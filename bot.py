@@ -102,6 +102,7 @@ def new_member(update, context):
 	for member in update.message.new_chat_members:
 		if member.username == "CAPS_TV_AFKBot":
 			if update.message.chat.id != int(os.environ.get("CHAT_ID")):
+				update.message.reply_photo("https://rojserbest.github.io/caps-tv-afk-telegram-bot/EC04BA5E-7D75-47A6-A302-8176AA9EFA96.gif")
 				context.bot.leave_chat(update.message.chat.id)
 
 updater = Updater(os.environ.get("TOKEN"), use_context = True)
