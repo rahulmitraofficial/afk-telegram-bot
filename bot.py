@@ -87,8 +87,8 @@ Reason: <b>{}</b>
 		""".format(mention, reason), parse_mode = "HTML")
 
 def private(update, context):
-	reply_markup = InlineKeyboardMarkup([[InlineKeyboardButton(text = "Bot Repository", url = "https://github.com/pranaovs/afk-telegram-bot")]])
-	update.message.reply_text("Hello. This bot has no functions in PM.\nTo use this bot in your groups, you must fork it. Detailed guide given in bot repository", reply_markup = reply_markup)
+	reply_markup = InlineKeyboardMarkup([[InlineKeyboardButton(text = "🛠 Bot Repository", url = "https://github.com/pranaovs/afk-telegram-bot")]])
+	update.message.reply_text("Hello. This AFK bot has no functions in PM.\nTo use AFK Features in your groups, you must fork it. Detailed guide given in bot repository", reply_markup = reply_markup)
 
 def main(update, context):
 	if update.message.from_user.username:
