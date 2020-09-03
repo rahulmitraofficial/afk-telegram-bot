@@ -39,9 +39,12 @@ def group(update, context):
 	user_id = update.message.from_user.id
 	user_name = update.message.from_user.first_name
 	
+	# If the message was from an AFK user
 	if afk.get(user_id):
+		# Remove the record of that user in the database
 		afk.rm(user_id)
 	
+	# Try and tell if the replied user is AFK
 	try:
 		replied_user_id = update.message.reply_to_message.from_user.id
 		replied_user_name = update.message.reply_to_message.from_user.first_name
@@ -59,7 +62,9 @@ Reason: <b>{}</b>
 		""".format(mention), parse_mode = "HTML")
 		return
 	except:
-		print()
+		print() # I just dunno why that's here :/
+	
+	# Try and tell if the first mentioned user is AFK
 	reason = afk.get(get_mentioned_id(update))
 	if reason and reason != "None":
 		update.message.reply_text("""
@@ -72,6 +77,7 @@ Reason: <b>{}</b>
 {} is <b>AFK</b>!
 		""".format(get_mentioned_mention(update)), parse_mode = "HTML")
 	
+	# Marking a user as AFK
 	if text.startswith("/afk"):
 		text = text.replace("/afk", "")
 		text = text.strip()
