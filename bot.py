@@ -104,7 +104,7 @@ def new_member(update, context):
 		if update.message.chat.id != int(os.environ.get("CHAT_ID")):
 			caption = """This bot isn't made for this group.\nTo use AFK features, you will need to host your own bot.\nDetailed instructions given in Bot's repository.\n\nIf you don't wish to clone and self host, you can try @MissStella_bot instead, which has integrated AFK features."""
 			reply_markup = InlineKeyboardMarkup([[InlineKeyboardButton(text = "🛠 Bot Repository", url = "https://github.com/pranaovs/afk-telegram-bot")]])
-			update.message.reply_document("https://raw.githubusercontent.com/pranaovs/afk-telegram-bot/master/files/gif/leave/" + str(random.randrange(1,int(os.environ.get("leave_gif")+1)) + ".gif", caption = caption, reply_markup = reply_markup)
+			update.message.reply_document("https://raw.githubusercontent.com/pranaovs/afk-telegram-bot/master/files/gif/leave/" + str(random.randrange(1,3)) + ".gif", caption = caption, reply_markup = reply_markup)
 			context.bot.leave_chat(update.message.chat.id)
 
 updater = Updater(os.environ.get("TOKEN"), use_context = True)
