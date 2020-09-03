@@ -100,16 +100,15 @@ def main(update, context):
 
 def new_member(update, context):
 	for member in update.message.new_chat_members:
-		if member.username == "CAPS_TV_AFKBot":
-			if update.message.chat.id != int(os.environ.get("CHAT_ID")):
-				caption = """Sorry, this bot isn't made for this chat.
+		if update.message.chat.id != int(os.environ.get("CHAT_ID")):
+			caption = """Sorry, this bot isn't made for this chat.
 
 You need to clone this bot in order to use it in this chat.
 
 If you don't wish to clone and self host, you can try @MissStella_bot instead."""
-				reply_markup = InlineKeyboardMarkup([[InlineKeyboardButton(text = "Bot Repository", url = "https://github.com/rojserbest/caps-tv-afk-telegram-bot")]])
-				update.message.reply_document("https://rojserbest.github.io/caps-tv-afk-telegram-bot/EC04BA5E-7D75-47A6-A302-8176AA9EFA96.gif", caption = caption, reply_markup = reply_markup).reply_text("Bye.")
-				context.bot.leave_chat(update.message.chat.id)
+			reply_markup = InlineKeyboardMarkup([[InlineKeyboardButton(text = "Bot Repository", url = "https://github.com/rojserbest/caps-tv-afk-telegram-bot")]])
+			update.message.reply_document("https://rojserbest.github.io/caps-tv-afk-telegram-bot/EC04BA5E-7D75-47A6-A302-8176AA9EFA96.gif", caption = caption, reply_markup = reply_markup).reply_text("Bye.")
+			context.bot.leave_chat(update.message.chat.id)
 
 updater = Updater(os.environ.get("TOKEN"), use_context = True)
 
