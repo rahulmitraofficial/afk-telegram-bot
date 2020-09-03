@@ -79,8 +79,9 @@ Reason: <b>{}</b>
 	
 	# Marking a user as AFK
 	if text.startswith("/afk"):
-		text = text.replace("/afk", "")
-		text = text.strip()
+		text = text.split(" ")
+		del text[0]
+		text = " ".join(text)
 		reason = "None"
 		if text != "":
 			reason = text
