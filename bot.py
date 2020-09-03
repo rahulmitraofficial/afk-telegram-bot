@@ -3,6 +3,7 @@ from telegram import *
 from telegram.ext import *
 import users
 import afk
+import random
 
 def get_mentioned_id(update):
 	message = update.effective_message
@@ -107,7 +108,7 @@ To use AFK features, you will need to host your own bot. Detailed instructions g
 
 If you don't wish to clone and self host, you can try @MissStella_bot instead, which has integrated AFK Features."""
 			reply_markup = InlineKeyboardMarkup([[InlineKeyboardButton(text = "🛠 Bot Repository", url = "https://github.com/pranaovs/afk-telegram-bot")]])
-			update.message.reply_document("https://raw.githubusercontent.com/pranaovs/afk-telegram-bot/master/docs/EC04BA5E-7D75-47A6-A302-8176AA9EFA96.gif", caption = caption, reply_markup = reply_markup)
+			update.message.reply_document("https://raw.githubusercontent.com/pranaovs/afk-telegram-bot/master/files/gif/leave/" + random.randrange(1,2) + ".gif", caption = caption, reply_markup = reply_markup)
 			context.bot.leave_chat(update.message.chat.id)
 
 updater = Updater(os.environ.get("TOKEN"), use_context = True)
