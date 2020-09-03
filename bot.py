@@ -39,6 +39,8 @@ def group(update, context):
 	user_id = update.message.from_user.id
 	user_name = update.message.from_user.first_name
 	
+	mention = f'<a href="tg://user?id={update.message.from_user.id}">{update.message.from_user.first_name}</a>'
+	
 	# If the message was from an AFK user
 	if afk.get(user_id):
 		# Remove the record of that user in the database
@@ -48,18 +50,18 @@ def group(update, context):
 	try:
 		replied_user_id = update.message.reply_to_message.from_user.id
 		replied_user_name = update.message.reply_to_message.from_user.first_name
-		mention = f'<a href="tg://user?id={replied_user_id}">{replied_user_name}</a>'
+		rmention = f'<a href="tg://user?id={replied_user_id}">{replied_user_name}</a>'
 		reason = afk.get(replied_user_id)
 		if reason and reason != "None":
 			update.message.reply_text("""
-{} is <b>AFK</b>!
+Hey {}, {} is <b>AFK</b>!
 
 Reason: <b>{}</b>
-		""".format(mention, reason), parse_mode = "HTML")
+		""".format(mention, rmention, reason), parse_mode = "HTML")
 		elif reason:
 			update.message.reply_text("""
-{} is <b>AFK</b>!
-		""".format(mention), parse_mode = "HTML")
+Hey {}, {} is <b>AFK</b>!
+		""".format(mention, rmention), parse_mode = "HTML")
 		return
 	except:
 		print() # I just dunno why that's here :/
@@ -68,14 +70,14 @@ Reason: <b>{}</b>
 	reason = afk.get(get_mentioned_id(update))
 	if reason and reason != "None":
 		update.message.reply_text("""
-{} is <b>AFK</b>!
+Hey {}, {} is <b>AFK</b>!
 
 Reason: <b>{}</b>
-		""".format(get_mentioned_mention(update), reason), parse_mode = "HTML")
+		""".format(mention, get_mentioned_mention(update), reason), parse_mode = "HTML")
 	elif reason:
 			update.message.reply_text("""
-{} is <b>AFK</b>!
-		""".format(get_mentioned_mention(update)), parse_mode = "HTML")
+Hey {}, {} is <b>AFK</b>!
+		""".format(mention, get_mentioned_mention(update)), parse_mode = "HTML")
 	
 	# Marking a user as AFK
 	if text.startswith("/afk"):
@@ -86,7 +88,6 @@ Reason: <b>{}</b>
 		if text != "":
 			reason = text
 		afk.add(afk.AFK(user_id = user_id, reason = reason))
-		mention = f'<a href="tg://user?id={user_id}">{user_name}</a>'
 		
 		if reason == "None":
 			update.message.reply_text(f"{mention} is <b>AFK</b>!", parse_mode = "HTML")
