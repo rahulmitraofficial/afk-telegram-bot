@@ -5,6 +5,7 @@ import users
 import afk
 import random
 
+# Get the first mentioned user's user_id
 def get_mentioned_id(update):
 	message = update.effective_message
 	userc = update.effective_user
@@ -18,6 +19,7 @@ def get_mentioned_id(update):
 			if ent.type == MessageEntity.MENTION:
 				return int(users.get(message.text[ent.offset:ent.offset + ent.length].replace("@", "")))
 
+# Get the first mentioned user's permanent link
 def get_mentioned_mention(update):
 	message = update.effective_message
 	userc = update.effective_user
@@ -31,6 +33,7 @@ def get_mentioned_mention(update):
 			if ent.type == MessageEntity.MENTION:
 				return message.text[ent.offset:ent.offset + ent.length]
 
+# Respond to updates coming from groups or supergroups
 def group(update, context):
 	text = update.message.text
 	user_id = update.message.from_user.id
@@ -87,13 +90,17 @@ Reason: <b>{}</b>
 Reason: <b>{}</b>
 		""".format(mention, reason), parse_mode = "HTML")
 
+# Respond to updates coming from private chats
 def private(update, context):
 	reply_markup = InlineKeyboardMarkup([[InlineKeyboardButton(text = "🛠 Bot Repository", url = "https://github.com/pranaovs/afk-telegram-bot")]])
 	update.message.reply_text("Hello. This AFK bot has no functions in PM.\nTo use AFK Features in your groups, you must fork it. Detailed guide given in bot repository.", reply_markup = reply_markup)
 
 def main(update, context):
+	# If the user had a username
 	if update.message.from_user.username:
+		# Save the ID and username in the table to recognize it next time
 		users.add(users.User(user_id = update.message.from_user.id, username = update.message.from_user.username))
+	
 	if update.message.chat.type == "supergroup" or update.message.chat.type == "group":
 		return group(update, context)
 	elif update.message.chat.type == "private":
@@ -101,10 +108,15 @@ def main(update, context):
 
 def new_member(update, context):
 	for member in update.message.new_chat_members:
+		# If the chat wasn't the one that the bot is dedicated to
 		if update.message.chat.id != int(os.environ.get("CHAT_ID")):
 			caption = """This bot isn't made for this group.\nTo use AFK features, you will need to host your own bot.\nDetailed instructions given in Bot's repository.\n\nIf you don't wish to clone and self host, you can try @MissStella_bot instead, which has integrated AFK features."""
 			reply_markup = InlineKeyboardMarkup([[InlineKeyboardButton(text = "🛠 Bot Repository", url = "https://github.com/pranaovs/afk-telegram-bot")]])
+			
+			# Say something
 			update.message.reply_document("https://raw.githubusercontent.com/pranaovs/afk-telegram-bot/master/files/gif/leave/" + str(random.randrange(1,3)) + ".gif", caption = caption, reply_markup = reply_markup)
+			
+			# And leave the chat
 			context.bot.leave_chat(update.message.chat.id)
 
 updater = Updater(os.environ.get("TOKEN"), use_context = True)
